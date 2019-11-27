@@ -3,11 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		66750D542373670E00A3BFE8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66750D532373670E00A3BFE8 /* main.swift */; };
+		66750D5C2373747E00A3BFE8 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 66750D5B2373747E00A3BFE8 /* CSV */; };
+		66750D5E237389AC00A3BFE8 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66750D5D237389AC00A3BFE8 /* StreamReader.swift */; };
+		66750D60237391C300A3BFE8 /* CommandLineParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66750D5F237391C300A3BFE8 /* CommandLineParseResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,8 @@
 /* Begin PBXFileReference section */
 		66750D502373670E00A3BFE8 /* suggestionsLogger */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = suggestionsLogger; sourceTree = BUILT_PRODUCTS_DIR; };
 		66750D532373670E00A3BFE8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		66750D5D237389AC00A3BFE8 /* StreamReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
+		66750D5F237391C300A3BFE8 /* CommandLineParseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineParseResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66750D5C2373747E00A3BFE8 /* CSV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				66750D532373670E00A3BFE8 /* main.swift */,
+				66750D5D237389AC00A3BFE8 /* StreamReader.swift */,
+				66750D5F237391C300A3BFE8 /* CommandLineParseResult.swift */,
 			);
 			path = suggestionsLogger;
 			sourceTree = "<group>";
@@ -78,6 +86,9 @@
 			dependencies = (
 			);
 			name = suggestionsLogger;
+			packageProductDependencies = (
+				66750D5B2373747E00A3BFE8 /* CSV */,
+			);
 			productName = suggestionsLogger;
 			productReference = 66750D502373670E00A3BFE8 /* suggestionsLogger */;
 			productType = "com.apple.product-type.tool";
@@ -106,6 +117,9 @@
 				Base,
 			);
 			mainGroup = 66750D472373670E00A3BFE8;
+			packageReferences = (
+				66750D5A2373747E00A3BFE8 /* XCRemoteSwiftPackageReference "CSV.swift" */,
+			);
 			productRefGroup = 66750D512373670E00A3BFE8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -120,6 +134,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66750D5E237389AC00A3BFE8 /* StreamReader.swift in Sources */,
+				66750D60237391C300A3BFE8 /* CommandLineParseResult.swift in Sources */,
 				66750D542373670E00A3BFE8 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,6 +200,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -237,6 +254,7 @@
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -244,6 +262,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -253,6 +272,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -280,6 +300,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		66750D5A2373747E00A3BFE8 /* XCRemoteSwiftPackageReference "CSV.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yaslab/CSV.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		66750D5B2373747E00A3BFE8 /* CSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 66750D5A2373747E00A3BFE8 /* XCRemoteSwiftPackageReference "CSV.swift" */;
+			productName = CSV;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 66750D482373670E00A3BFE8 /* Project object */;
 }
