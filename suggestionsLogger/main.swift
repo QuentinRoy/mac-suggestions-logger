@@ -12,6 +12,7 @@ import CSV
 
 enum ConversionError: Error {
     case fileNotFound(fileName: String)
+    case wordOutOfBound
 }
 
 func getSentenceSuggestions(sentence: String) -> (String, [String]?, [String]?, String?, String, [String]?) {
@@ -149,15 +150,16 @@ func writeCSVSuggestions(
     outputCsv.stream.close()
 }
 
-func findWord(inSentence sentence: String, atIndex index: Int) -> String? {
+func findWord(inSentence sentence: String, atIndex index: Int) throws -> (Int, String) {
     var current = 0
-    for word in sentence.components(separatedBy: " ") {
+    for (wordIndex, word) in sentence.components(separatedBy: " ").enumerated() {
         if (word.count + current >= index) {
-            return word
+            return (wordIndex, word)
         }
+        // Adding 1 because we are skipping white spaces.
         current += word.count + 1
     }
-    return nil
+    throw ConversionError.wordOutOfBound
 }
 
 func writeCSVSuggestions(
@@ -176,7 +178,7 @@ func writeCSVSuggestions(
     
     // This needs to be a variable. The compiler fails to type check if I am trying to
     // concatenate all these arrays at once...
-    var headerRow = ["sentence_num", "full_sentence", "char_num", "input", "full_last_word", "last_word_input"]
+    var headerRow = ["sentence_num", "full_sentence", "char_num", "input", "full_last_word", "word_num", "last_word_input"]
     headerRow += (1...numberOfSuggestions).map { "completion_\($0)" }
     headerRow += (1...numberOfSuggestions).map { "guess_\($0)" }
     headerRow += ["correction", "corrected_sentence"]
@@ -200,7 +202,7 @@ func writeCSVSuggestions(
             for charNum in 0...sentence.count {
                 outputCsv.beginNewRow()
                 let input = String(sentence.prefix(charNum))
-                let lastWord: String = findWord(inSentence: sentence, atIndex: charNum) ?? ""
+                let (lastWordIndex, lastWord) = try findWord(inSentence: sentence, atIndex: charNum)
                 let (
                     lastWordInput,
                     optionalCompletions,
@@ -219,6 +221,7 @@ func writeCSVSuggestions(
                 try outputCsv.write(field: String(charNum))
                 try outputCsv.write(field: input)
                 try outputCsv.write(field: lastWord)
+                try outputCsv.write(field: String(lastWordIndex))
                 try outputCsv.write(field: lastWordInput)
                 
                 for i in 0...(numberOfSuggestions - 1) {
