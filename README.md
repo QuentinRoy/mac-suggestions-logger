@@ -33,7 +33,13 @@ For example:
 
 ## Outpout and Disclaimer
 
-Mac OS spell checker's API was seldom documented at the time I wrote this script. It provides several functions such as "completion" (produces multiple words), "guess" (produces multiple words), "correction" (produces one single word), or "completion" (produces multiple words).
+Mac OS spell checker's API was seldom documented at the time I wrote this script. It provides several functions such as:
+
+- "completion" (produces multiple words),
+- "guess" (produces multiple words),
+- "correction" (produces one single word), or
+- "completion" (produces multiple words).
+
 All these are written as is by this took.
 
 Unfortunately, it is currently rather unclear how these functions are actually supposed to be used to provide reliable predictions. Consequently, I had to reverse engineer these the best I could, and proceed with a trial and error approach to get them to work.
