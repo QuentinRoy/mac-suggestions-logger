@@ -287,7 +287,7 @@ func main() -> Int32 {
                 name: "sentence-column",
                 letter: "s",
                 valueType: .string("sentence"),
-                briefHelp: "(optional) CSV-type only: specify the name of the column in the input size to use as a sentence. If unspecified, the program will use the first column and assume that there are no headers."),
+                briefHelp: "(optional) CSV-type only: specify the name of the column in the input file to use as a sentence. If unspecified, the program will use the first column and assume that there are no headers."),
             
             CommandLineOptionDefinition(
                 name: "input-type",
