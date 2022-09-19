@@ -40,7 +40,7 @@ Mac OS spell checker's API was seldom documented at the time I wrote this script
 - "correction" (produces one single word), or
 - "completion" (produces multiple words).
 
-All these are written as is by this took.
+All these are written as is by this tool.
 
 Unfortunately, it is currently rather unclear how these functions are actually supposed to be used to provide reliable predictions. Consequently, I had to reverse engineer these the best I could, and proceed with a trial and error approach to get them to work.
 
