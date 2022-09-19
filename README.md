@@ -41,7 +41,3 @@ Mac OS spell checker's API was seldom documented at the time I wrote this script
 - "completion" (produces multiple words).
 
 All these are written as is by this tool.
-
-Unfortunately, it is currently rather unclear how these functions are actually supposed to be used to provide reliable predictions. Consequently, I had to reverse engineer these the best I could, and proceed with a trial and error approach to get them to work.
-
-It is also rather unclear how Mac OS uses these values, for example it is unclear how it combines these to create the 3-word suggestion list provided to users as they typed (to the best of my knowledge, it seems to be mostly coming from the "completion" list, albeith "guess" may also be inserted from time to time).
