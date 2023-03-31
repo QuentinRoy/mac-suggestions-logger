@@ -68,7 +68,8 @@ func writeCSVSuggestions(
     fromCSVAtPath inputPath: String,
     toFileAtPath path: String,
     forNumberOfSuggestions numberOfSuggestions: Int,
-    withSentenceColumn sentenceColumn: String? = nil
+    withSentenceColumn sentenceColumn: String? = "wordNumber",
+    fromLine firstLineNumber: Int = 0
 ) throws {
     // Create the input reader and the output writer.
     let inputStream = InputStream(fileAtPath: inputPath)!
@@ -89,9 +90,16 @@ func writeCSVSuggestions(
     
     // Write the output header.
     try outputCsv.write(row: headerRow)
-        
+    
+    var writtenLines = 0
+    var currentLineNb = 0;
+    
     // Read every lines in input, get the suggestions, and write them in output.
     while let row = inputCsv.next() {
+        currentLineNb+=1;
+        if(currentLineNb < firstLineNumber){
+            continue;
+        }
         outputCsv.beginNewRow()
         let sentence = sentenceColumn == nil ? row[0] : inputCsv[sentenceColumn!]!
         let (
@@ -107,7 +115,7 @@ func writeCSVSuggestions(
         let guesses: [String] = optionalGuesses ?? []
         let completionsOnCorrection: [String] = optionalCompletionsOnCorrection ?? []
         
-         for col in sentenceColumn == nil ? [sentence] : inputHeaderRow.map { inputCsv[$0]! } {
+         for col in sentenceColumn == nil ? [sentence] : inputHeaderRow.map ({ inputCsv[$0]! }) {
              try outputCsv.write(field: col)
          }
         
@@ -144,7 +152,10 @@ func writeCSVSuggestions(
                 try outputCsv.write(field: "")
             }
         }
+        writtenLines += 1
+        print("\(writtenLines) written lines", terminator: "\r")
     }
+    print()
     
     // Close the output stream.
     outputCsv.stream.close()
@@ -276,6 +287,12 @@ func main() -> Int32 {
                 letter: "i",
                 valueType: .string("path"),
                 briefHelp: "Specify input file path"),
+            
+            CommandLineOptionDefinition(
+                name: "skip-until-line",
+                letter: "s",
+                valueType: .string("skip"),
+                briefHelp: "Specify the number of line to skip from the input file"),
 
             CommandLineOptionDefinition(
                 name: "output-file",
@@ -285,8 +302,8 @@ func main() -> Int32 {
             
             CommandLineOptionDefinition(
                 name: "sentence-column",
-                letter: "s",
-                valueType: .string("sentence"),
+                letter: "c",
+                valueType: .string("column"),
                 briefHelp: "(optional) CSV-type only: specify the name of the column in the input file to use as a sentence. If unspecified, the program will use the first column and assume that there are no headers."),
             
             CommandLineOptionDefinition(
@@ -303,8 +320,13 @@ func main() -> Int32 {
         }
         
         var sentenceColumn: String? = nil
-        if case let .string(s) = result.value(optionNamed: "sentence-column") {
-            sentenceColumn = s
+        if case let .string(c) = result.value(optionNamed: "sentence-column") {
+            sentenceColumn = c
+        }
+        
+        var startLine = 0
+        if case let .string(s) = result.value(optionNamed: "skip-until-line") {
+            startLine = Int(s) ?? 0
         }
         
         var type: InputType? = nil;
@@ -321,7 +343,8 @@ func main() -> Int32 {
                     fromCSVAtPath: inputFile,
                     toFileAtPath: outputFile,
                     forNumberOfSuggestions: 10,
-                    withSentenceColumn: sentenceColumn
+                    withSentenceColumn: sentenceColumn,
+                    fromLine: startLine
                 )
                 return 0
         } else if case .text = type,
