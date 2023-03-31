@@ -18,7 +18,7 @@ Use XCode to build the project (Product > Archive).
 $ ./suggestionsLogger
 -h, --help                     Show this help message
 -i path, --input-file=path     Specify input file path
--s skip, --skip-until-line=ski (optional) Specify the number of line to skip from the input file
+-s skip, --skip-until-line=ski Specify the number of line to skip from the input file (default: 0)
 -o path, --output-file=path    Specify output file path
 -c column, --sentence-column=c (optional) CSV-type only: specify the name of the column in the input file to use as a sentence. If unspecified, the program will use the first column and assume that there are no headers.
 -t type, --input-type=type     The type of input file (csv or text, default: text)

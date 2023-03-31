@@ -292,7 +292,7 @@ func main() -> Int32 {
                 name: "skip-until-line",
                 letter: "s",
                 valueType: .string("skip"),
-                briefHelp: "Specify the number of line to skip from the input file"),
+                briefHelp: "Specify the number of line to skip from the input file (default: 0)"),
 
             CommandLineOptionDefinition(
                 name: "output-file",
